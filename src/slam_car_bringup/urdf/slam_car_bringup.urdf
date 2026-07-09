@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="slam_car_bringup">
+  <link
+    name="basefoot_link">
+    <inertial>
+      <origin
+        xyz="-0.00579052371044658 0.00323447469386351 0.112122204194137"
+        rpy="0 0 0" />
+      <mass
+        value="1.61216731861996" />
+      <inertia
+        ixx="0.00185808195389787"
+        ixy="2.61681630587095E-05"
+        ixz="-8.94109747405806E-07"
+        iyy="0.00558929725123506"
+        iyz="-1.14485387935182E-05"
+        izz="0.00671451642708066" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://slam_car_bringup/meshes/basefoot_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://slam_car_bringup/meshes/basefoot_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="1.69234931624573E-05 0.000150295862446748 0.00104806628647489"
+        rpy="0 0 0" />
+      <mass
+        value="0.014349663675999" />
+      <inertia
+        ixx="8.10429718157749E-06"
+        ixy="-4.30532137585767E-10"
+        ixz="-5.59623224835799E-14"
+        iyy="3.47243299668213E-06"
+        iyz="4.23831470773739E-10"
+        izz="1.15182948479294E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://slam_car_bringup/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://slam_car_bringup/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="base_joint"
+    type="fixed">
+    <origin
+      xyz="0.0195795224024497 4.35599634547312E-05 0.0870000000000001"
+      rpy="0 0 0" />
+    <parent
+      link="basefoot_link" />
+    <child
+      link="base_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="laser_link">
+    <inertial>
+      <origin
+        xyz="5.55111512312578E-17 1.11022302462516E-16 -0.0049188742681131"
+        rpy="0 0 0" />
+      <mass
+        value="0.0442845851177659" />
+      <inertia
+        ixx="8.99677852978465E-06"
+        ixy="5.93761011528483E-08"
+        ixz="-2.32934060494933E-21"
+        iyy="8.99677852978465E-06"
+        iyz="-3.81164826264435E-21"
+        izz="9.43736558886082E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://slam_car_bringup/meshes/laser_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://slam_car_bringup/meshes/laser_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="laser_joint"
+    type="fixed">
+    <origin
+      xyz="-0.00635280270601718 -4.35599634609485E-05 0.152499999999998"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="laser_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="camera_link">
+    <inertial>
+      <origin
+        xyz="-0.00589801592102646 -0.0471438797599946 -0.000188745986513555"
+        rpy="0 0 0" />
+      <mass
+        value="0.0474558251402965" />
+      <inertia
+        ixx="5.97584913400182E-05"
+        ixy="2.48092601181919E-07"
+        ixz="-1.08417199247081E-07"
+        iyy="5.81836617594421E-06"
+        iyz="1.06580820146363E-07"
+        izz="5.92765922995712E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://slam_car_bringup/meshes/camera_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://slam_car_bringup/meshes/camera_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="camera_joint"
+    type="fixed">
+    <origin
+      xyz="0.183187195246871 0.0474564400365425 0.0872526502242746"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="camera_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+</robot>

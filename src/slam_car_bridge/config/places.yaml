@@ -1,0 +1,33 @@
+# 语义地点配置 — 临时手动填写
+# 正式使用请通过语音标注 "这里是<地名>" 或 RViz2 Publish Point
+# CLI: python3 places_cli.py add <名称> <lat> <lon> [别名]
+
+充电座:
+  lat: 0.0
+  lon: 0.0
+  alt: 0.0
+  aliases: "充电桩,充电站"
+
+三号楼:
+  lat: 0.0
+  lon: 0.0
+  alt: 0.0
+  aliases: "3号楼,三栋"
+
+快递柜:
+  lat: 0.0
+  lon: 0.0
+  alt: 0.0
+  aliases: "快递,丰巢,取快递"
+
+水泵房:
+  lat: 0.0
+  lon: 0.0
+  alt: 0.0
+  aliases: "泵房"
+
+大门:
+  lat: 0.0
+  lon: 0.0
+  alt: 0.0
+  aliases: "入口,正门"

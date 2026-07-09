@@ -1,0 +1,18 @@
+yolo_node:
+  ros__parameters:
+    # 模型与标签路径（板端 ELF2）
+    model_path: "/data/yolov8/car.rknn"
+    labels_path: "/data/yolov8/labels_list.txt"
+
+    # 相机话题
+    camera_topic: "/camera/color/image_raw"
+
+    # 检测阈值
+    conf_threshold: 0.25
+    nms_threshold: 0.45
+
+    # NPU 核心绑定: 1=Core0, 2=Core1, 4=Core2, 7=三核全开
+    core_mask: 1
+
+    # 是否发布带标注框的图像
+    publish_annotated: true

@@ -1,0 +1,6 @@
+corridor_mess
+fire
+smoke
+Person
+Car
+Motorcycle
