@@ -1,0 +1,10 @@
+<view class="card {{alarm ? 'card-alarm' : ''}}" bindtap="onCardTap">
+  <view class="card-header">
+    <text class="card-name {{alarm ? 'name-alarm' : ''}}">{{name}}</text>
+    <text class="card-setting" catchtap="onSettingTap" hover-class="setting-hover">⚙</text>
+  </view>
+  <view class="card-body">
+    <text class="card-value">{{value}}</text>
+    <text class="card-unit">{{unit}}</text>
+  </view>
+</view>

@@ -1,0 +1,35 @@
+<view class="popup-mask" wx:if="{{visible}}" bindtap="onClose"></view>
+<view class="popup-panel {{visible ? 'popup-show' : ''}}">
+  <view class="popup-header">
+    <text class="popup-title">{{sensor_name}} 阈值设置</text>
+    <text class="popup-unit" wx:if="{{unit}}">({{unit}})</text>
+  </view>
+  <view class="popup-body">
+    <view class="threshold-row">
+      <text class="threshold-label">最小值</text>
+      <input
+        class="threshold-input"
+        type="digit"
+        value="{{minValue}}"
+        bindinput="onMinInput"
+        placeholder="最小值"
+      />
+      <text class="threshold-unit">{{unit}}</text>
+    </view>
+    <view class="threshold-row">
+      <text class="threshold-label">最大值</text>
+      <input
+        class="threshold-input"
+        type="digit"
+        value="{{maxValue}}"
+        bindinput="onMaxInput"
+        placeholder="最大值"
+      />
+      <text class="threshold-unit">{{unit}}</text>
+    </view>
+  </view>
+  <view class="popup-footer">
+    <button class="btn-cancel" bindtap="onClose">取消</button>
+    <button class="btn-save" bindtap="onSave">保存</button>
+  </view>
+</view>

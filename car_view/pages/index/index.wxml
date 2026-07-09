@@ -1,0 +1,59 @@
+<view class="container">
+  <!-- 标题栏 -->
+  <view class="title-bar">
+    <view class="title-left">
+      <image class="title-logo" src="/images/logo.png" mode="aspectFit"></image>
+    </view>
+    <text class="title-text">智慧巡检车</text>
+    <view class="title-location">
+      <text class="location-dot"></text>
+      <text class="location-text">山东济南</text>
+    </view>
+  </view>
+
+  <!-- 状态栏 -->
+  <view class="status-bar">
+    <view class="status-row">
+      <view class="status-indicator {{deviceOnline ? 'online' : 'offline'}}">
+        <view class="status-dot"></view>
+        <text>{{deviceOnline ? '在线' : '离线'}}</text>
+      </view>
+      <text class="battery-text">🔋 {{batteryVoltage}}V</text>
+    </view>
+    <text class="update-text" wx:if="{{lastUpdate}}">最后更新: {{lastUpdate}}</text>
+  </view>
+
+  <!-- 传感器卡片 2×3 网格 -->
+  <view class="sensor-grid">
+    <sensor-card
+      wx:for="{{sensors}}"
+      wx:key="key"
+      name="{{item.name}}"
+      value="{{item.value != null ? item.value : '--'}}"
+      unit="{{item.unit}}"
+      alarm="{{item.alarm}}"
+      decimal="{{item.decimal}}"
+      data-index="{{index}}"
+      bind:cardtap="onCardTap"
+      bind:settingtap="onSettingTap"
+    />
+  </view>
+
+  <!-- 底部刷新 -->
+  <view class="footer">
+    <button class="refresh-btn" bindtap="onRefresh">手动刷新</button>
+    <text class="poll-hint">自动每5秒刷新</text>
+  </view>
+
+  <!-- 阈值弹窗 -->
+  <threshold-popup
+    visible="{{popupVisible}}"
+    sensor_key="{{editingSensor.key}}"
+    sensor_name="{{editingSensor.name}}"
+    current_min="{{editingSensor.min}}"
+    current_max="{{editingSensor.max}}"
+    unit="{{editingSensor.unit}}"
+    bind:save="onThresholdSave"
+    bind:close="onPopupClose"
+  />
+</view>

@@ -1,0 +1,19 @@
+{
+  "mqtt_access_key": "YOUR_IOTDA_ACCESS_KEY",
+  "mqtt_access_code": "",
+  "mqtt_instance_id": "",
+  "mqtt_host": "xxxx.st1.iotda-app.cn-east-3.myhuaweicloud.com",
+  "mqtt_port": 8883,
+  "amap_api_key": "YOUR_AMAP_API_KEY",
+  "iam_user": "YOUR_IAM_USERNAME",
+  "iam_pass": "YOUR_IAM_PASSWORD",
+  "iam_domain": "YOUR_IAM_DOMAIN",
+  "iam_project": "cn-east-3",
+  "iotda_api_host": "xxxx.st1.iotda-app.cn-east-3.myhuaweicloud.com",
+  "iotda_project_id": "YOUR_PROJECT_ID",
+  "iotda_device_id": "YOUR_DEVICE_ID",
+  "ros2_gps_topic": "/gps/fix",
+  "ros2_waypoint_topic": "/gps_waypoint",
+  "stream_url": "http://192.168.5.10:8082",
+  "elf_host": "192.168.5.10"
+}

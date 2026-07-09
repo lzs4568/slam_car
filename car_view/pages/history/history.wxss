@@ -1,0 +1,62 @@
+.container {
+  background: #e8eaed;
+  min-height: 100vh;
+}
+
+.range-bar {
+  display: flex;
+  justify-content: center;
+  gap: 10rpx;
+  padding: 20rpx 24rpx;
+  background: #ffffff;
+  border-bottom: 1rpx solid #e0e2e7;
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.04);
+}
+
+.range-item {
+  padding: 12rpx 36rpx;
+  font-size: 26rpx;
+  font-weight: 600;
+  color: #6b6b78;
+  border-radius: 24rpx;
+  background: #f3f4f6;
+  box-shadow: 0 1rpx 3rpx rgba(0,0,0,0.04);
+}
+
+.range-active {
+  background: linear-gradient(180deg, #4b8ef7 0%, #3b7de6 100%);
+  color: #ffffff;
+  box-shadow: 0 3rpx 10rpx rgba(59,130,246,0.25), inset 0 1rpx 0 rgba(255,255,255,0.2);
+}
+
+.chart-wrap {
+  width: calc(100% - 40rpx);
+  height: 640rpx;
+  background: #ffffff;
+  margin: 20rpx 20rpx 0;
+  padding: 20rpx;
+  box-sizing: border-box;
+  border-radius: 18rpx;
+  border: 1rpx solid #e2e4e9;
+  box-shadow:
+    0 4rpx 16rpx rgba(0,0,0,0.05),
+    0 1rpx 3rpx rgba(0,0,0,0.03),
+    inset 0 1rpx 0 rgba(255,255,255,0.9);
+}
+
+.chart-wrap ec-canvas {
+  width: 100%;
+  height: 100%;
+}
+
+.empty-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 400rpx;
+}
+
+.empty-text {
+  font-size: 28rpx;
+  color: #8e8e98;
+}

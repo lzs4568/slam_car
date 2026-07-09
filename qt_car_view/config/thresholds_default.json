@@ -1,0 +1,11 @@
+{
+  "temp_high": 60.0,
+  "temp_low": 0.0,
+  "hum_high": 95.0,
+  "hum_low": 0.0,
+  "mq2_gas_value_high": 500,
+  "mq135_gas_value_high": 500,
+  "pm2_5_high": 75,
+  "battery_high": 13.0,
+  "battery_low": 10.5
+}

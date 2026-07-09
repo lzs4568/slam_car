@@ -1,0 +1,168 @@
+.container {
+  padding-bottom: 120rpx;
+}
+
+/* ---- 标题栏 ---- */
+.title-bar {
+  background: linear-gradient(180deg, #f0f2f5 0%, #e2e5ea 100%);
+  padding: 28rpx 28rpx 24rpx;
+  border-bottom: 1rpx solid #d0d3d9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.title-left {
+  position: absolute;
+  left: 28rpx;
+  width: 64rpx;
+  height: 64rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.title-logo {
+  width: 52rpx;
+  height: 52rpx;
+  border-radius: 12rpx;
+}
+
+.title-text {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #1a1a22;
+  letter-spacing: 0.06em;
+}
+
+.title-location {
+  position: absolute;
+  right: 28rpx;
+  display: flex;
+  align-items: center;
+  background: #ffffff;
+  padding: 8rpx 20rpx;
+  border-radius: 20rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.08);
+}
+
+.location-dot {
+  width: 12rpx;
+  height: 12rpx;
+  border-radius: 50%;
+  background: #3b82f6;
+  margin-right: 8rpx;
+  box-shadow: 0 0 6rpx rgba(59,130,246,0.4);
+}
+
+.location-text {
+  font-size: 24rpx;
+  font-weight: 600;
+  color: #3b82f6;
+}
+
+/* ---- 状态栏 ---- */
+.status-bar {
+  background: #ffffff;
+  margin: 16rpx 20rpx;
+  padding: 20rpx 28rpx;
+  border-radius: 16rpx;
+  box-shadow:
+    0 4rpx 16rpx rgba(0,0,0,0.06),
+    0 1rpx 4rpx rgba(0,0,0,0.04),
+    inset 0 1rpx 0 rgba(255,255,255,0.9);
+  border: 1rpx solid #e0e2e7;
+}
+
+.status-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.status-indicator {
+  display: flex;
+  align-items: center;
+  font-size: 26rpx;
+  font-weight: 700;
+}
+
+.status-dot {
+  width: 16rpx;
+  height: 16rpx;
+  border-radius: 50%;
+  margin-right: 10rpx;
+}
+
+.online .status-dot {
+  background: #22c55e;
+  box-shadow: 0 0 8rpx rgba(34,197,94,0.5), inset 0 1rpx 0 rgba(255,255,255,0.5);
+}
+.online { color: #16a34a; }
+
+.offline .status-dot {
+  background: #c0c0c8;
+}
+.offline { color: #9898a0; }
+
+.battery-text {
+  font-size: 26rpx;
+  font-weight: 600;
+  color: #1e1e24;
+}
+
+.update-text {
+  font-size: 22rpx;
+  color: #8e8e98;
+  margin-top: 8rpx;
+}
+
+/* ---- 传感器网格 ---- */
+.sensor-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 8rpx 12rpx;
+}
+
+.sensor-grid sensor-card {
+  width: calc(50% - 24rpx);
+  box-sizing: border-box;
+}
+
+/* ---- 底部 ---- */
+.footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 36rpx 24rpx;
+}
+
+.refresh-btn {
+  width: 240rpx;
+  height: 84rpx;
+  line-height: 84rpx;
+  font-size: 28rpx;
+  font-weight: 700;
+  color: #ffffff;
+  background: linear-gradient(180deg, #4b8ef7 0%, #3b7de6 100%);
+  border-radius: 42rpx;
+  border: none;
+  padding: 0;
+  letter-spacing: 0.06em;
+  box-shadow:
+    0 6rpx 20rpx rgba(59,130,246,0.35),
+    0 2rpx 6rpx rgba(59,130,246,0.2),
+    inset 0 1rpx 0 rgba(255,255,255,0.25);
+}
+
+.refresh-btn::after {
+  border: none;
+}
+
+.poll-hint {
+  font-size: 22rpx;
+  color: #8e8e98;
+  margin-top: 16rpx;
+}

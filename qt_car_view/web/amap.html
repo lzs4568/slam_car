@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>巡检小车地图</title>
+<style>
+  *{margin:0;padding:0}html,body,#container{width:100%;height:100%}
+  #status{position:absolute;top:10px;right:10px;background:rgba(0,0,0,.85);color:#0f0;padding:4px 10px;border-radius:4px;font-size:12px;z-index:1000;font-family:monospace}
+</style>
+</head>
+<body>
+<div id="container"></div>
+<div id="status">加载中...</div>
+<script>
+var map=null,carMarker=null,trackLine=null,mapReady=false,firstFix=true;
+var placeMarkers=[],placeInfoWin=null,waypointMarkers=[];
+
+// WGS84→GCJ02
+function w2g(wl,wa){var a=6378245,ee=.00669342162296594323;function tL(x,y){var r=-100+2*x+3*y+.2*y*y+.1*x*y+.2*Math.sqrt(Math.abs(x));r+=(20*Math.sin(6*x*Math.PI)+20*Math.sin(2*x*Math.PI))*2/3;r+=(20*Math.sin(y*Math.PI)+40*Math.sin(y/3*Math.PI))*2/3;r+=(160*Math.sin(y/12*Math.PI)+320*Math.sin(y*Math.PI/30))*2/3;return r}function tN(x,y){var r=300+x+2*y+.1*x*x+.1*x*y+.1*Math.sqrt(Math.abs(x));r+=(20*Math.sin(6*x*Math.PI)+20*Math.sin(2*x*Math.PI))*2/3;r+=(20*Math.sin(x*Math.PI)+40*Math.sin(x/3*Math.PI))*2/3;r+=(150*Math.sin(x/12*Math.PI)+300*Math.sin(x/30*Math.PI))*2/3;return r}var dl=tL(wl-105,wa-35),dn=tN(wl-105,wa-35);var rad=wa/180*Math.PI,m=1-ee*Math.sin(rad)*Math.sin(rad),s=Math.sqrt(m);dl=(dl*180)/((a*(1-ee))/(m*s)*Math.PI);dn=(dn*180)/(a/s*Math.cos(rad)*Math.PI);return{lat:wa+dl,lng:wl+dn}}
+
+// GCJ02→WGS84 (迭代反算, 3轮精度 <0.5m)
+function g2w(gl,ga){
+    var lat=ga,lng=gl;
+    for(var i=0;i<3;i++){var g=w2g(lng,lat);lat-=g.lat-ga;lng-=g.lng-gl}
+    return{lat:lat,lng:lng}
+}
+
+function setStatus(m){document.getElementById('status').textContent=m}
+
+// 极简入口 — 由 tryGpsUpdate 直接调用, 不做任何判断
+function tryPos(lat,lng){
+    if(!mapReady)return;
+    try {
+        var g=w2g(lng,lat);
+        var p=new AMap.LngLat(g.lng,g.lat);
+        carMarker.setPosition(p);
+        carMarker.show();
+        trackLine.setPath(trackLine.getPath().concat([p]));
+        if(firstFix){firstFix=false;map.setCenter(p);map.setZoom(17)}
+        document.getElementById('status').textContent='OK '+lat.toFixed(5)+','+lng.toFixed(5);
+    } catch(e){ document.getElementById('status').textContent='ERR '+e.message; }
+}
+
+// 兼容旧调用
+function updatePosition(lat,lng){ tryPos(lat,lng); }
+function addTrajectoryPoint(lat,lng){}
+function addTrajectoryPoint(lat,lng){}  // 已在 updatePosition 处理
+function clearTrajectory(){trackLine.setPath([])}
+function clearWaypoints(){
+    for(var i=0;i<waypointMarkers.length;i++)map&&map.remove(waypointMarkers[i]);
+    waypointMarkers=[];
+}
+function clearPlaces(){
+    if(!map)return;
+    for(var i=0;i<placeMarkers.length;i++)map.remove(placeMarkers[i]);
+    placeMarkers=[];
+    if(placeInfoWin)placeInfoWin.close();
+}
+
+function showPlaces(json){
+    if(!mapReady)return;
+    clearPlaces();
+    try{
+        var places=JSON.parse(json);
+        if(!places||!places.length)return;
+        for(var i=0;i<places.length;i++){
+            var p=places[i];
+            if(p.lat==null||p.lng==null)continue;
+            var g=w2g(p.lng,p.lat);
+            var content='<div style="padding:6px 10px;font-size:13px;font-family:sans-serif">'+
+                '<b>'+p.name+'</b>'+
+                '<br><span style="color:#999;font-size:11px">'+p.lat.toFixed(6)+', '+p.lng.toFixed(6)+'</span>'+
+                '<br><button onclick="navigateTo('+p.lat+','+p.lng+',\''+p.name+'\')" '+
+                'style="margin-top:4px;padding:2px 12px;background:#2E86C1;color:#fff;border:none;border-radius:3px;cursor:pointer;font-size:12px">前往</button>'+
+                '</div>';
+            var m=new AMap.Marker({
+                icon:new AMap.Icon({size:new AMap.Size(24,24),image:'https://webapi.amap.com/theme/v1.3/markers/n/mark_b.png',imageSize:new AMap.Size(24,24)}),
+                position:[g.lng,g.lat],
+                title:p.name,
+                offset:new AMap.Pixel(-12,-12)
+            });
+            (function(marker,html){
+                marker.on('click',function(e){
+                    if(placeInfoWin)placeInfoWin.close();
+                    placeInfoWin=new AMap.InfoWindow({content:html,offset:new AMap.Pixel(0,-30)});
+                    placeInfoWin.open(map,marker.getPosition());
+                });
+            })(m,content);
+            map.add(m);
+            placeMarkers.push(m);
+        }
+    }catch(e){document.getElementById('status').textContent='PLACES ERR: '+e.message}
+}
+
+function navigateTo(lat,lng,name){
+    window.location='carview://navigate?lat='+lat+'&lng='+lng+'&name='+encodeURIComponent(name);
+}
+
+function showWaypoint(lat,lng){
+    if(!mapReady)return;var g=w2g(lng,lat);
+    if(waypointMarkers.length>20){var old=waypointMarkers.shift();map.remove(old)}
+    var m=new AMap.Marker({icon:new AMap.Icon({size:new AMap.Size(24,24),image:'https://webapi.amap.com/theme/v1.3/markers/n/mark_b.png',imageSize:new AMap.Size(24,24)}),position:[g.lng,g.lat]});
+    map.add(m);waypointMarkers.push(m)
+}
+
+// 地图初始化 - 保持上海默认中心, 首次GPS定位时会自动跳转
+function doInitMap(A){
+    map=new A.Map('container',{zoom:17,center:[121.4,31.2],mapStyle:'amap://styles/dark'});
+    carMarker=new A.Marker({icon:new A.Icon({size:new A.Size(32,32),image:'https://webapi.amap.com/theme/v1.3/markers/n/mark_r.png',imageSize:new A.Size(32,32)}),position:[121.4,31.2],title:'巡检小车',visible:false});
+    map.add(carMarker);
+    trackLine=new A.Polyline({strokeColor:'#00BFFF',strokeWeight:3,strokeOpacity:.8,lineJoin:'round'});
+    trackLine.setPath([]);map.add(trackLine);
+    map.on('click',function(e){
+        var gc=e.lnglat,w=g2w(gc.getLng(),gc.getLat());
+        window.location='carview://click?lat='+w.lat+'&lng='+w.lng;
+    });
+    map.on('rightclick',function(e){
+        var gc=e.lnglat,w=g2w(gc.getLng(),gc.getLat());
+        var name=prompt('标注地名 (例如: 快递柜, 3号楼):');
+        if(name&&name.trim())window.location='carview://annotate?lat='+w.lat+'&lng='+w.lng+'&name='+encodeURIComponent(name.trim());
+    });
+    map.on('complete',function(){mapReady=true;setStatus('就绪,等待GPS')});
+    setStatus('初始化...')
+}
+
+function startMap(){
+    var k=window.__carViewApiKey||'';
+    if(!k){setStatus('无API Key');return}
+    setStatus('加载SDK...');
+    var s=document.createElement('script');s.src='https://webapi.amap.com/loader.js';
+    s.onload=function(){if(typeof AMapLoader!=='undefined')AMapLoader.load({key:k,version:'2.0'}).then(doInitMap).catch(function(e){setStatus('失败:'+e.message)});else fl(k)};
+    s.onerror=function(){fl(k)};document.head.appendChild(s)
+}
+function fl(k){window.initMapCallback=function(){doInitMap(window.AMap)};var s=document.createElement('script');s.src='https://webapi.amap.com/maps?v=2.0&key='+k+'&callback=initMapCallback';s.onerror=function(){setStatus('网络不通')};document.head.appendChild(s)}
+</script>
+</body>
+</html>

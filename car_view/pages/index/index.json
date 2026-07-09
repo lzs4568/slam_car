@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "sensor-card": "/components/sensor-card/sensor-card",
+    "threshold-popup": "/components/threshold-popup/threshold-popup"
+  },
+  "enablePullDownRefresh": true
+}

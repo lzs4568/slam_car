@@ -1,0 +1,27 @@
+<view class="container">
+  <!-- 时间范围切换 -->
+  <view class="range-bar">
+    <view
+      wx:for="{{ranges}}"
+      wx:key="value"
+      class="range-item {{range === item.value ? 'range-active' : ''}}"
+      data-range="{{item.value}}"
+      bindtap="switchRange"
+    >{{item.label}}</view>
+  </view>
+
+  <!-- ECharts 图表区域 -->
+  <view class="chart-wrap" wx:if="{{!empty}}">
+    <ec-canvas
+      id="historyChart"
+      canvas-id="historyCanvas"
+      ec="{{ec}}"
+      bind:ready="onChartReady"
+    ></ec-canvas>
+  </view>
+
+  <!-- 空数据占位 -->
+  <view class="empty-wrap" wx:if="{{empty}}">
+    <text class="empty-text">暂无数据</text>
+  </view>
+</view>

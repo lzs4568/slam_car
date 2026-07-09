@@ -1,0 +1,7 @@
+page {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", sans-serif;
+  font-size: 28rpx;
+  color: #1e1e24;
+  background: #e8eaed;
+  -webkit-font-smoothing: antialiased;
+}

@@ -1,0 +1,16 @@
+<RCC>
+  <qresource prefix="/">
+    <file>qml/MainWindow.qml</file>
+    <file>qml/SensorPanel.qml</file>
+    <file>qml/SensorCard.qml</file>
+    <file>qml/MapWebView.qml</file>
+    <file>qml/StatusBar.qml</file>
+    <file>qml/ConnectionDialog.qml</file>
+    <file>qml/ThresholdDialog.qml</file>
+    <file>qml/CameraView.qml</file>
+    <file>qml/DirectionPad.qml</file>
+    <file>qml/ChatPanel.qml</file>
+    <file>web/amap.html</file>
+    <file>config/thresholds_default.json</file>
+  </qresource>
+</RCC>
